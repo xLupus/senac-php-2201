@@ -39,7 +39,7 @@ echo '<br>Hoje é ' . $contatos[2]; //Sem interpolação com Vetores
 $contato = [
             2 => 'Mae',
             4 => 'Pai',
-            5 => 'Primo'
+            5 => 'Primo <br>'
         ];
 
 /*
@@ -54,24 +54,13 @@ echo $contato['Mom'];
 
 //
 
-/*Teste falho kkkk
 
-$i = 0;
-$usuario = [i];
-$usuario[i] = [];
-
-for($linha = 0, $linha <= 3, $linha++){
-    for($col = 0, $col <= 1, $col++){
-        $usuario[i][] = [];
-
-        i++
-    }
-}*/
 
 /*
 $usuario['nome'] = 'Luiz';
 $usuario['senha'] = '123';
 */
+
 
 $usuario[0] = ['nome' => 'Luiz',
                'senha' => '123'];
@@ -82,11 +71,18 @@ $usuario[1] = ['nome' => 'fer',
 $usuario[2] = ['nome' => 'Bono',
                'senha' => '627'];
 
+//looping do vetor
 
+for($vezes = 0; $vezes <= 5; $vezes++){
+    for($i = 0; $i <=2; $i++){
+        echo '<pre>';
+        var_dump($usuario[$i]);
+    };
+};
 
-echo '<pre>';
+//echo '<pre>';
 
-var_dump($usuario);
+//var_dump($usuario);
 
 
 //Atribuição na unha
