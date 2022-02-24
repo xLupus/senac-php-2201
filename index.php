@@ -73,11 +73,9 @@ $usuario[2] = ['nome' => 'Bono',
 
 //looping do vetor
 
-for($vezes = 0; $vezes <= 5; $vezes++){
-    for($i = 0; $i <=2; $i++){
-        echo '<pre>';
-        var_dump($usuario[$i]);
-    };
+for($i = 0; $i <=2; $i++){
+    echo '<pre>';
+    var_dump($usuario[$i]);
 };
 
 //echo '<pre>';
