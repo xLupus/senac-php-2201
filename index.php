@@ -1,77 +1,6 @@
 <?php
 
-//Comentario em linha
-
-/*
-Comentario de bloco
-*/
-
-//$nome = Declara Variavel
-//define(); = Define uma constante
-
-define( "XPTO", "Valor sempre igual"); //define("nome da constante", "Conteudo da Constante");
-echo XPTO;
-
-$num = 2;
-$var = '<br>' . "Ola mundo! $num";
-echo $var;
-
-echo '<br><br><h1>Vamo tomar um cafe!</h1>';
-
-//echo $var;
-//var_dump($var);
-//phpinfo(); - Mostra informações importantes, como variaveis de ambiente
-
-//Vetores
-
-$diaSemana = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sabado'];
-
-$contatos = ['Mae','Pai','Primo'];
-
-//echo '<pre>';
-var_dump($contatos);
-
-echo "<br>Hoje é {$contatos[2]}"; //interpolação com Vetores
-echo '<br>Hoje é ' . $contatos[2]; //Sem interpolação com Vetores
-
-//Atribuir posição
-
-$contato = [
-            2 => 'Mae',
-            4 => 'Pai',
-            5 => 'Primo'
-        ];
-
-/*
-$contato = [
-            'Mom' => 'Mae',
-            'Dad' => 'Pai',
-            'Cous' => 'Primo'
-        ]; 
-
-echo $contato['Mom'];   
-*/
-
-//
-
-/*Teste falho kkkk
-
-$i = 0;
-$usuario = [i];
-$usuario[i] = [];
-
-for($linha = 0, $linha <= 3, $linha++){
-    for($col = 0, $col <= 1, $col++){
-        $usuario[i][] = [];
-
-        i++
-    }
-}*/
-
-/*
-$usuario['nome'] = 'Luiz';
-$usuario['senha'] = '123';
-*/
+//Sorting Array
 
 $usuario[0] = ['nome' => 'Luiz',
                'senha' => '123'];
@@ -83,18 +12,54 @@ $usuario[2] = ['nome' => 'Bono',
                'senha' => '627'];
 
 
+echo '  <table border="1">
+        <tr>
+            <td>ID</td><td>Nome</td><td>Senha</td> 
+        </tr>
+     ';
 
-echo '<pre>';
+foreach($usuario as $id => $valor){
+    echo '<tr>';
+    echo "<td> $id</td><td> {$valor['nome']}</td><td> {$valor['senha']}</td>";
+    echo '<tr>';
+};
 
-var_dump($usuario);
+echo '</table>';
+
+// as = a cada interação o vetor vai ser ....
+
+// => = serve para atribuir um valor a uma chave especifica na definição um array e também para separar chave de um valor em um foreach;
+
+// id = indice, podendo ser numerico ou alpha numerico;
+
+// valor = o que tiver associado com o indice - valor por assim dizer ;
 
 
-//Atribuição na unha
+$dias = [ 'Dom' => ['Domingo','Domingo'],
+          'Seg' => ['Segundo','Segundo'],
+          'Ter' => ['Terça','Terça'],
+          'Qua' => ['Quarta','Quarta'],
+          'Qui' => ['Quinta','Quinta'],
+          'Sex' => ['Sexta','Sexta'],
+          'Sab' => ['Sabado','Sabado']];
 
-/*
-$contato = [0] = 'pa'
-$contato = [2] = 'pi'
+/* Vetor simples
 
+foreach($dias as $abreviacao => $nomeCompleto){
+    echo "$abreviacao: $nomeCompleto<br>";
+};
 
-echo $contato[2];
 */
+
+/*Vetor com vetor nas posições #1
+
+foreach($dias as $abreviacao => $nomes ){
+    echo "$abreviacao: {$nomes[0]} ou {$nomes[1]}<br>";
+};
+*/
+
+//Vetor com vetor nas posições #2
+foreach($dias as $abreviacao => [$nomeSimples , $nomeCompleto]){
+    echo "$abreviacao: $nomeSimples ou $nomeCompleto <br>";
+};
+
