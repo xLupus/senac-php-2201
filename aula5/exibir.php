@@ -24,4 +24,4 @@ while($linha = fgets($f)){
 
 echo "</table>";
 
-//explode(o caractere delimitador como virgula, variavel);
+//explode(o caractere delimitador como ex: virgula, variavel);
