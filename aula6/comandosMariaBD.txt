@@ -1,0 +1,38 @@
+CREATE 
+USE
+SHOW
+DESC
+
+SELECT
+INSERT
+UPDATE
+DELETE
+WHERE
+LIKE
+LIMIT
+
+
+USE 'nomeBancodeDAdos';
+
+
+
+SELECT 'nomeCampos' FROM 'nomeTabelas' LIMIT    LIKE
+
+INSERT INTO 'nomeTabelas' ('campos') VALUES ('valor');
+
+#testar a clausula WHERE antes de rodas o comando UPDATE ou DELETE
+
+UPDATE 'nomeTabelas' SET 'nomeCampos' WHERE 'condição';
+
+DELETE FROM 'nomeTabelas' WHERE id = n; id => m AND id =< n
+
+mysqldump -u root -p 'nomeBancodeDAdos' > arquivoDestino.sql;
+
+
+
+funcoes para oracle
+
+mysqli
+oci_connect
+sqlsrv
+PDO
