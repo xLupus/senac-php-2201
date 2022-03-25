@@ -1,38 +1,19 @@
-CREATE 
-USE
-SHOW
-DESC
-
-SELECT
-INSERT
-UPDATE
-DELETE
-WHERE
 LIKE
 LIMIT
 
 
-USE 'nomeBancodeDAdos';
-
-
-
-SELECT 'nomeCampos' FROM 'nomeTabelas' LIMIT    LIKE
-
-INSERT INTO 'nomeTabelas' ('campos') VALUES ('valor');
-
 #testar a clausula WHERE antes de rodas o comando UPDATE ou DELETE
 
-UPDATE 'nomeTabelas' SET 'nomeCampos' WHERE 'condição';
-
-DELETE FROM 'nomeTabelas' WHERE id = n; id => m AND id =< n
-
-mysqldump -u root -p 'nomeBancodeDAdos' > arquivoDestino.sql;
 
 
+SELECT nomeCampos,nomeCampos FROM nomeTabelas WHERE campo = valor
 
-funcoes para oracle
+INSERT INTO nomeTabelas (nomeCampos) VALUES (valor);
 
-mysqli
-oci_connect
-sqlsrv
-PDO
+UPDATE nomeTabelas SET nomeCampos = valor WHERE campoX = valor;
+
+DELETE FROM nomeTabelas WHERE nomeCampo = valor; 
+
+
+
+mysqldump -u root -p nomeBancodeDados > arquivoDestino.sql;
