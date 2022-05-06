@@ -33,3 +33,8 @@ echo "</table>
     </form>
     <a href=''></a>
 ";
+
+/*
+? apartir desse sinal vai vir variaveis com valor anexado;
+= atribuido
+*/
