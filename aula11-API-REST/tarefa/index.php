@@ -69,6 +69,43 @@ if($metodo == 'POST' || $metodo == 'PUT'){
 }
 
 
-if($metodo == 'DELETE')
+if($metodo == 'DELETE'){
+    
+    if( !isset($_GET['id']) ){
+        echo json_encode(["erro" => "ID nao fornecido"]);
+        exit(http_response_code(400));
+    }
+
+    $id = preg_replace('/\D/', '', $_GET['id']);
+
+    $stmt = $database->query('UPDATE tarefas SET apagado = 1 WHERE id = '.$id);
+    $stmt->execute(); 
+
+    if($stmt->execute()){
+        exit( http_response_code(200) );
+
+    }else{
+        exit( http_response_code(500) );
+    }
+
+    exit( http_response_code(200) );
+}
+
+
+
+
+
+
 
 http_response_code(405);
+
+
+
+
+
+
+
+/*
+rowCount() retorna o numero de linhas afetadas
+lastInsertId() retorna o ultimo id apos a inserçao
+*/
