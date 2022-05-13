@@ -42,21 +42,33 @@ if( $metodo == 'GET' ){//Se o requisitante usar o metodo Get
     exit();
 }
 
+
 if($metodo == 'POST' || $metodo == 'PUT'){
 
-    echo 'POST ou PUT';
-    
-    exit(http_response_code(200));
+    $tarefas = json_decode(file_get_contents('php://input'));
+
+    if( json_last_error() != JSON_ERROR_NONE ){
+
+        echo json_encode(["erro" => "JSON invalido"]);
+        exit(http_response_code(400));
+    }
+    if( !isset($tarefas->descricao) || !isset($tarefas->imagem)){
+
+        echo json_encode(["erro" => "Campos obrigatorios: Descricao e Imagem"]);
+        exit(http_response_code(400));
+    }
+
+    $stmt = $database->prepare("INSERT INTO tarefas (descricao, imagem) VALUES (:descricao,:imagem)");
+    $stmt->bindParam(':descricao', $tarefas->descricao);
+    $stmt->bindParam(':imagem', $tarefas->imagem);
+    $stmt->execute();
+    $id = $database->lastInsertId();
+
+    echo json_encode(['id' => $id]);
+
 }
 
 
+if($metodo == 'DELETE')
 
-
-
-//Retorna codigo de erro
 http_response_code(405);
-
-
-/*
-    json_encode() transforma em json
-*/
