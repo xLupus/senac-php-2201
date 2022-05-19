@@ -1,0 +1,126 @@
+<?php
+
+require_once 'conexao.php';
+
+$metodo = $_SERVER['REQUEST_METHOD'];
+
+if( $metodo == 'GET' ){//Se o requisitante usar o metodo Get
+
+    $str_sql = '';
+
+    if( isset($_GET['id']) ){
+
+        $id = preg_replace('/\D/', '', $_GET['id']);
+        $str_sql = "WHERE id = $id";
+    }
+
+    $stmt = $database->query('SELECT id, descricao, imagem, apagado FROM tarefas ' . $str_sql); 
+    $stmt->execute(); 
+
+    $saida = [];
+
+    while($reg = $stmt->fetch(PDO::FETCH_ASSOC) ){
+
+        if($reg['apagado'] == 1){
+
+            if(isset($_GET['id'])) exit(http_response_code(204));
+
+            continue; //continua no looping
+        }
+
+        $saida[] = $reg;
+    }
+
+    if(count($saida) <= 0){
+        http_response_code(404);
+        exit();
+    }
+
+    echo json_encode($saida);
+
+    http_response_code(200);
+    exit();
+}
+
+
+if($metodo == 'POST' || $metodo == 'PUT'){
+
+    $tarefas = json_decode(file_get_contents('php://input'));
+
+    if( json_last_error() != JSON_ERROR_NONE ){
+
+        echo json_encode(["erro" => "JSON invalido"]);
+        exit(http_response_code(400));
+    }
+    if( !isset($tarefas->descricao) || !isset($tarefas->imagem)){
+
+        echo json_encode(["erro" => "Campos obrigatorios: Descricao e Imagem"]);
+        exit(http_response_code(400));
+    }
+
+    $stmt = $database->prepare("INSERT INTO tarefas (descricao, imagem) VALUES (:descricao,:imagem)");
+    $stmt->bindParam(':descricao', $tarefas->descricao);
+    $stmt->bindParam(':imagem', $tarefas->imagem);
+    $stmt->execute();
+    $id = $database->lastInsertId();
+
+    echo json_encode(['id' => $id]);
+
+}
+
+
+if($metodo == 'DELETE'){
+    
+    if( !isset($_GET['id']) ){
+        echo json_encode(["erro" => "ID nao fornecido"]);
+        exit(http_response_code(400));
+    }
+
+    $id = preg_replace('/\D/', '', $_GET['id']);
+
+    $stmt = $database->query('UPDATE tarefas SET apagado = 1 WHERE id = '.$id);
+    $stmt->execute(); 
+
+    if($stmt->execute()){
+        exit( http_response_code(200) );
+
+    }else{
+        exit( http_response_code(500) );
+    }
+
+    exit( http_response_code(200) );
+}
+
+
+if($metodo == 'PATCH'){
+    
+    $tarefas = json_decode(file_get_contents('php://input'));
+
+    if( json_last_error() != JSON_ERROR_NONE ){
+
+        echo json_encode(["erro" => "JSON invalido"]);
+        exit(http_response_code(400));
+    }
+    if( !isset($tarefas->descricao) || !isset($tarefas->imagem)){
+
+        echo json_encode(["erro" => "Campos obrigatorios: Descricao e Imagem"]);
+        exit(http_response_code(400));
+    }
+
+    $stmt = $database->prepare("UPDATE tarefas 
+                                SET descricao = :descricao, imagem = :imagem
+                                WHERE id = :id AND apagado = 0");
+
+    $stmt->bindParam(':descricao', $tarefas->descricao);
+    $stmt->bindParam(':imagem', $tarefas->imagem);
+    $stmt->bindParam(':id', $tarefas->id);
+
+    if( $stmt->execute() ){
+        exit(http_response_code(200));
+    }else{
+        exit(http_response_code(500));
+    }
+}
+
+
+http_response_code(405);
