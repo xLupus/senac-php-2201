@@ -30,7 +30,7 @@ class Calculadora{
 //unset() = destroi qualquer variavel $
 
 /*
-__ = metodos magico e constantes magicas
+__ = metodos magico e constantes magicas    git p
     __construct()
     __FILE__ = Nome do Arquivo
 
