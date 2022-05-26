@@ -26,7 +26,7 @@ class Main{
 
         $this->front($this->num1, $this->num2, $resultado);
     }
-
+    
     private function operacao():?float
     {
 
